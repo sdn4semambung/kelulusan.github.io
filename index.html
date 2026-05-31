@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pengumuman Kelulusan SD Negeri 4 Semambung</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+
+    background:
+        linear-gradient(
+            rgba(15,76,129,0.75),
+            rgba(46,134,222,0.75)
+        ),
+        url('background-sekolah.jpg');
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    background:#fff;
+    border-radius:25px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+.logo{
+    width:120px;
+    margin-bottom:15px;
+}
+
+.school-name{
+    font-size:24px;
+    font-weight:700;
+    color:#0f4c81;
+}
+
+.school-address{
+    color:#666;
+    margin-bottom:20px;
+}
+
+h1{
+    color:#0f4c81;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#666;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    font-size:16px;
+}
+
+input:focus{
+    border-color:#0f4c81;
+    outline:none;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border:none;
+    border-radius:12px;
+    background:#0f4c81;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#093152;
+}
+
+.result{
+    display:none;
+    margin-top:25px;
+    padding:25px;
+    border-radius:15px;
+    position:relative;
+    overflow:hidden;
+}
+
+.result::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:url('logo.png') center center no-repeat;
+    background-size:180px;
+    opacity:.05;
+    pointer-events:none;
+}
+
+.lulus{
+    background:#eefbf0;
+    border:1px solid #7bd67f;
+}
+
+.error{
+    background:#fff0f0;
+    border:1px solid #ff9e9e;
+}
+
+@keyframes muncul{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.show{
+    animation:muncul .8s ease;
+}
+
+.foto-siswa{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:50%;
+    border:5px solid #0f4c81;
+    margin-bottom:15px;
+}
+
+.icon{
+    font-size:60px;
+}
+
+.nama{
+    font-size:24px;
+    font-weight:700;
+    color:#0f4c81;
+    margin-top:10px;
+}
+
+.status{
+    color:#0d8f2d;
+    font-size:30px;
+    font-weight:700;
+    margin-top:10px;
+}
+
+.download-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:14px 22px;
+    border-radius:12px;
+    background:#28a745;
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.download-btn:hover{
+    background:#1f8637;
+}
+
+.kepsek-box{
+    margin-top:25px;
+}
+
+.ttd{
+    width:180px;
+}
+
+.kepsek{
+    font-weight:600;
+    color:#333;
+}
+
+.footer{
+    margin-top:20px;
+    color:#888;
+    font-size:12px;
+}
+
+@media(max-width:600px){
+
+    .container{
+        padding:25px;
+    }
+
+    .logo{
+        width:90px;
+    }
+
+    .school-name{
+        font-size:20px;
+    }
+
+    .nama{
+        font-size:20px;
+    }
+
+    .status{
+        font-size:24px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<img src="logo.png" class="logo" alt="Logo Sekolah">
+
+<div class="school-name">
+    SD NEGERI 4 SEMAMBUNG
+</div>
+
+<div class="school-address">
+    Kecamatan Jatibanteng • Kabupaten Situbondo
+</div>
+
+<h1>Pengumuman Kelulusan</h1>
+
+<p class="subtitle">
+    Siswa Kelas VI Tahun Pelajaran 2025/2026
+</p>
+
+<input
+    type="text"
+    id="nisn"
+    placeholder="Masukkan NISN">
+
+<button onclick="cekKelulusan()">
+    CEK KELULUSAN
+</button>
+
+<div id="hasil" class="result"></div>
+
+<div class="footer">
+    © SD Negeri 4 Semambung
+</div>
+```
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<script>
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbzTeHIc6YiuPouyKd5d5p7e5TzCMvdBdObl5BPEdMRKETuKH7y5nzcSrEjlWcGkQ2TGIg/exec";
+
+const SURAT_URL =
+"https://drive.google.com/drive/folders/1SDcqebx04FxBnQdOEVcs9IsJymQIbxq3?usp=sharing";
+
+async function cekKelulusan(){
+
+    const nisn =
+        document.getElementById("nisn")
+        .value
+        .trim();
+
+    const hasil =
+        document.getElementById("hasil");
+
+    if(!nisn){
+
+        hasil.style.display="block";
+        hasil.className="result error show";
+
+        hasil.innerHTML=
+        "<b>Silakan masukkan NISN terlebih dahulu.</b>";
+
+        return;
+    }
+
+    try{
+
+        const response =
+            await fetch(API_URL);
+
+        const data =
+            await response.json();
+
+        const siswa =
+            data.find(
+                s => String(s.nisn).trim() === nisn
+            );
+
+        hasil.style.display="block";
+
+        if(siswa){
+
+            const foto =
+                `foto/${siswa.nisn}.jpg`;
+
+            hasil.className =
+                "result lulus show";
+
+            hasil.innerHTML = `
+                <img
+                    src="${foto}"
+                    class="foto-siswa"
+                    onerror="this.src='logo.png'">
+
+                <div class="icon">🎓</div>
+
+                <h2>SELAMAT</h2>
+
+                <div class="nama">
+                    ${siswa.nama}
+                </div>
+
+                <p>NISN : ${siswa.nisn}</p>
+
+                <div class="status">
+                    ${siswa.keterangan}
+                </div>
+
+                <p style="margin-top:15px">
+                    Berdasarkan hasil rapat dewan guru,
+                    Anda dinyatakan lulus.
+                </p>
+
+                <div class="kepsek-box">
+                    <img
+                        src="ttd-kepsek.png"
+                        class="ttd">
+
+                    <div class="kepsek">
+                        Kepala Sekolah
+                    </div>
+                </div>
+
+                <a
+                    href="${SURAT_URL}"
+                    target="_blank"
+                    class="download-btn">
+                    📄 Download Surat Kelulusan
+                </a>
+            `;
+
+            setTimeout(()=>{
+                confetti({
+                    particleCount:120,
+                    spread:100,
+                    origin:{x:0.2,y:0.6}
+                });
+            },200);
+
+            setTimeout(()=>{
+                confetti({
+                    particleCount:120,
+                    spread:100,
+                    origin:{x:0.8,y:0.6}
+                });
+            },400);
+
+            setTimeout(()=>{
+                confetti({
+                    particleCount:180,
+                    spread:160,
+                    origin:{x:0.5,y:0.4}
+                });
+            },600);
+
+        }else{
+
+            hasil.className =
+                "result error show";
+
+            hasil.innerHTML = `
+                <h3>Data Tidak Ditemukan</h3>
+                <p>
+                    NISN yang Anda masukkan tidak terdaftar.
+                </p>
+            `;
+        }
+
+    }catch(error){
+
+        hasil.style.display="block";
+        hasil.className="result error show";
+
+        hasil.innerHTML = `
+            <h3>Terjadi Kesalahan</h3>
+            <p>
+                Gagal mengambil data dari server.
+            </p>
+        `;
+
+        console.error(error);
+    }
+}
+
+</script>
+
+</body>
+</html>
