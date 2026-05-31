@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pengumuman Kelulusan Kelas VI</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0f4c81,#1f7ac9);
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    background:white;
+    width:90%;
+    max-width:500px;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.logo{
+    width:90px;
+    margin-bottom:10px;
+}
+
+h1{
+    color:#0f4c81;
+    margin-bottom:5px;
+}
+
+.subtitle{
+    color:#666;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:16px;
+    box-sizing:border-box;
+}
+
+button{
+    margin-top:15px;
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#0f4c81;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0b3961;
+}
+
+.result{
+    margin-top:25px;
+    padding:20px;
+    border-radius:12px;
+    display:none;
+}
+
+.lulus{
+    background:#e8f7e8;
+    border:1px solid #8dd18d;
+}
+
+.error{
+    background:#ffe9e9;
+    border:1px solid #ff9b9b;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>PENGUMUMAN KELULUSAN</h1>
+    <p class="subtitle">
+        Siswa Kelas VI Tahun Pelajaran 2024/2025
+    </p>
+
+    <input type="text" id="nisn" placeholder="Masukkan NISN">
+
+    <button onclick="cekKelulusan()">
+        CEK KELULUSAN
+    </button>
+
+    <div id="hasil" class="result"></div>
+
+</div>
+
+<script>
+
+const dataSiswa = [
+{nisn:"3133276411", nama:"Abdullah", keterangan:"LULUS"},
+{nisn:"3133065062", nama:"Ahmad Fauzi", keterangan:"LULUS"},
+{nisn:"3131100690", nama:"Alvin Zidna Faqih", keterangan:"LULUS"},
+{nisn:"3135490927", nama:"Arina Zidna Ilma", keterangan:"LULUS"},
+{nisn:"126374819", nama:"Dian Nuril Afifah", keterangan:"LULUS"},
+{nisn:"3123663036", nama:"Diva Ayu Safitri", keterangan:"LULUS"},
+{nisn:"3123498138", nama:"Fahri Rhamadhan", keterangan:"LULUS"},
+{nisn:"3129722116", nama:"Fatimatuz Zahro", keterangan:"LULUS"},
+{nisn:"3135596173", nama:"Lailatul Muna", keterangan:"LULUS"},
+{nisn:"3135508209", nama:"M. Alif Azzam", keterangan:"LULUS"},
+{nisn:"3134973072", nama:"M. Fadhlur Rahman", keterangan:"LULUS"},
+{nisn:"3132648758", nama:"M. Rizki Maulana", keterangan:"LULUS"},
+{nisn:"3135534630", nama:"M. Zainal Arifin", keterangan:"LULUS"},
+{nisn:"3136962684", nama:"Nabila Putri Aulia", keterangan:"LULUS"},
+{nisn:"3139506089", nama:"Nanda Dwi Saputra", keterangan:"LULUS"},
+{nisn:"3139988310", nama:"Nia Ramadhani", keterangan:"LULUS"},
+{nisn:"3137639250", nama:"Rizky Wahyu Hidayat", keterangan:"LULUS"},
+{nisn:"3137126483", nama:"Siti Aisyah", keterangan:"LULUS"},
+{nisn:"3137436192", nama:"Yusuf Maulana", keterangan:"LULUS"}
+];
+
+function cekKelulusan(){
+
+    const nisn = document.getElementById('nisn').value.trim();
+
+    const siswa = dataSiswa.find(
+        s => s.nisn === nisn
+    );
+
+    const hasil = document.getElementById('hasil');
+
+    if(siswa){
+
+        hasil.style.display = 'block';
+        hasil.className = 'result lulus';
+
+        hasil.innerHTML = `
+            <h2>SELAMAT!</h2>
+            <p><strong>Nama:</strong><br>${siswa.nama}</p>
+            <p><strong>NISN:</strong><br>${siswa.nisn}</p>
+            <h3>Status: ${siswa.keterangan}</h3>
+        `;
+
+    }else{
+
+        hasil.style.display = 'block';
+        hasil.className = 'result error';
+
+        hasil.innerHTML = `
+            <h3>Data tidak ditemukan</h3>
+            <p>Periksa kembali NISN yang Anda masukkan.</p>
+        `;
+    }
+}
+</script>
+
+</body>
+</html>
